@@ -6,17 +6,24 @@ export default async function Page() {
     let topThree;
 
     try {
-        topThree = await User.find({}).sort({ elo: -1 }).limit(3).exec();
+        const response = await fetch("https://www.speedsudoku.xyz/api/users", { method: "GET" });
+        const data = await response.json();
+        if (response.ok) {
+            const sortedUsers = data.users.sort((a: IUser, b: IUser) => b.elo - a.elo);
+            topThree = sortedUsers.slice(0, 3);
+        } else {
+            console.error(data)
+        }
     } catch (error) {
         console.error(error);
         return (
-            <>Error</>
-        )
+            <>Leaderboard unavailable</>
+        );
     }
 
-    const one = topThree[0]?.toObject();
-    const two = topThree[1]?.toObject();
-    const three = topThree[2]?.toObject();
+    const two = topThree[1];
+    const one = topThree[0];
+    const three = topThree[2];
 
     return (
         <div className="w-full h-screen flex mt-4 justify-center">
