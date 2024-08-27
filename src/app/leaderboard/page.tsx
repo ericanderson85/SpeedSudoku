@@ -10,7 +10,7 @@ export default async function Page() {
     } catch (error) {
         console.error(error);
         return (
-            <>{error}</>
+            <>Error</>
         )
     }
 
