@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react"
 import Header from "@/components/Header/Header";
 import "./globals.css";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
@@ -17,6 +18,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <body className={inter.className}>
           <Header />
           {children}
+          <Analytics />
         </body>
       </UserProvider>
     </html>
